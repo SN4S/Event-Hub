@@ -4,6 +4,7 @@ from django.views import View
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from .models import User
 from .form import UserForm
+from main.utils import FilterManager
 
 # Create your views here.
 """
@@ -30,6 +31,10 @@ class UserListView(ListView):
     model = User
     template_name = 'users/users.html'
     context_object_name = 'users'
+
+    def get_queryset(self):
+        users = super().get_queryset()
+        return FilterManager.apply_filters(users, self.request, ['full_name', 'email'])
 
 
 class UserDetailView(View):

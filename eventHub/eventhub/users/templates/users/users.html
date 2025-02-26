@@ -1,24 +1,51 @@
 {% extends "main/base.html" %}
 
 {% block content %}
-  <div class="container mt-5">
+  <div>
     <h2>Список учасників</h2>
-    <a href="{% url 'create' %}" class="btn btn-success mb-3">Додати учасника</a>
-    <table class="table table-striped">
+
+    <form method="get">
+      <div>
+        <div>
+          <input type="text" name="full_name" placeholder="Пошук за іменем" value="{{ request.GET.full_name }}">
+        </div>
+        <div class="col-md-4">
+          <input type="email" name="email" placeholder="Пошук за email" value="{{ request.GET.email }}">
+        </div>
+        <div>
+          <select name="sort_by">
+            <option value="">Сортувати за...</option>
+            <option value="full_name" {% if request.GET.sort_by == "full_name" %}selected{% endif %}>Ім'я (А-Я)</option>
+            <option value="-full_name" {% if request.GET.sort_by == "-full_name" %}selected{% endif %}>Ім'я (Я-А)</option>
+            <option value="email" {% if request.GET.sort_by == "email" %}selected{% endif %}>Email (А-Я)</option>
+            <option value="-email" {% if request.GET.sort_by == "-email" %}selected{% endif %}>Email (Я-А)</option>
+          </select>
+        </div>
+        <div>
+          <button type="submit">Застосувати</button>
+        </div>
+      </div>
+    </form>
+
+    <table>
       <thead>
         <tr>
           <th>Ім'я</th>
           <th>Email</th>
         </tr>
       </thead>
-<tbody>
-    {% for user in users %}
-      <tr>
-        <td><a href="{% url 'user' pk=user.pk %}">{{ user.full_name }}</a></td>
-        <td>{{ user.email }}</td>
-      </tr>
-    {% endfor %}
-</tbody>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td><a href="{% url 'user' pk=user.pk %}">{{ user.full_name }}</a></td>
+            <td>{{ user.email }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="2">Немає результатів</td>
+          </tr>
+        {% endfor %}
+      </tbody>
     </table>
   </div>
 {% endblock %}
