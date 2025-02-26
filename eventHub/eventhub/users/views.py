@@ -18,7 +18,7 @@ def users(request):
 class UserCreateView(CreateView):
     model = User
     form_class = UserForm
-    template_name = 'users/user_create.html'
+    template_name = 'users/create.html'
 
     def form_valid(self, form):
         user = form.save()
@@ -36,7 +36,7 @@ class UserDetailView(View):
     def get(self, request, pk):
         user = get_object_or_404(User, pk=pk)
         form = UserForm(instance=user)
-        return render(request, 'users/user_detail.html', {'user': user, 'form': form})
+        return render(request, 'users/user.html', {'user': user, 'form': form})
 
     def post(self, request, pk):
         user = get_object_or_404(User, pk=pk)
@@ -44,8 +44,8 @@ class UserDetailView(View):
         if form.is_valid():
             form.save()
             messages.success(request, "Дані оновлено успішно!")
-            return redirect('user_detail', pk=user.pk)
-        return render(request, 'users/user_detail.html', {'user': user, 'form': form})
+            return redirect('user', pk=user.pk)
+        return render(request, 'users/user.html', {'user': user, 'form': form})
 
 class UserDeleteView(View):
     def post(self, request, pk):

@@ -3,7 +3,7 @@
 {% block content %}
   <div class="container mt-5">
     <h2>Список учасників</h2>
-    <a href="{% url 'user_create' %}" class="btn btn-success mb-3">Додати учасника</a>
+    <a href="{% url 'create' %}" class="btn btn-success mb-3">Додати учасника</a>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -14,7 +14,7 @@
 <tbody>
     {% for user in users %}
       <tr>
-        <td><a href="{% url 'user_detail' pk=user.pk %}">{{ user.full_name }}</a></td>
+        <td><a href="{% url 'user' pk=user.pk %}">{{ user.full_name }}</a></td>
         <td>{{ user.email }}</td>
       </tr>
     {% endfor %}
