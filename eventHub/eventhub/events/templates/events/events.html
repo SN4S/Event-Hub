@@ -1,0 +1,26 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>Список івентів</h2>
+    <a href="{% url 'create' %}" class="btn btn-success mb-3">Додати sвент</a>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Назва</th>
+          <th>Опис</th>
+          <th>Завершено?</th>
+        </tr>
+      </thead>
+<tbody>
+    {% for event in events %}
+      <tr>
+        <td><a href="{% url 'event' pk=event.pk %}">{{ event.name }}</a></td>
+        <td>{{ event.description }}</td>
+        <td>{{ event.is_finished }}</td>
+      </tr>
+    {% endfor %}
+</tbody>
+    </table>
+  </div>
+{% endblock %}
