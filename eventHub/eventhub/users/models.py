@@ -6,5 +6,5 @@ class User(models.Model):
     email = models.EmailField(unique=True, max_length=100)
 
 
-    def str(self):
+    def __str__(self):
         return self.full_name
