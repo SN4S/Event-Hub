@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "main/base.html" %}
 
-</body>
-</html>
+{% block content %}
+  <div class="container mt-5">
+    <h2>Список івентів</h2>
+
+    <form method="GET">
+        <input type="text" name="name" placeholder="Пошук за назвою">
+        <button type="submit">Знайти</button>
+    </form>
+
+    <ul>
+      {% for event in events %}
+        <li>
+          <a href="{% url 'event_registration' event.id %}">{{ event.name }}</a> ({{ event.location }})
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

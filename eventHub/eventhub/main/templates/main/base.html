@@ -6,13 +6,35 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Event Hub{% endblock %}</title>
 </head>
 <body>
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+    <!-- 🔹 Головна навігація -->
+    <nav>
+        <ul>
+            <li><a href="{% url 'main_page' %}">Головна</a></li>
+            <li><a href="{% url 'events' %}">Івенти</a></li>
+            <li><a href="{% url 'users' %}">Користувачі</a></li>
+            <li><a href="{% url 'about' %}">Про нас</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- 🔹 Бокова панель -->
+        <aside>
+            <h3>Навігація</h3>
+            <ul>
+                <li><a href="{% url 'create' %}">Створити івент</a></li>
+                <li><a href="{% url 'create' %}">Додати користувача</a></li>
+            </ul>
+        </aside>
+
+        <!-- 🔹 Основний контент -->
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
 
 </body>
 </html>
