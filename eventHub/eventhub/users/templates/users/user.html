@@ -3,7 +3,7 @@
 {% block title %}{{ user.full_name }}{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-3">
     <h2>Користувач: {{ user.full_name }}</h2>
     <p>Email: {{ user.email }}</p>
 
@@ -24,7 +24,7 @@
                 </div>
             {% endif %}
         {% endfor %}
-        <button type="submit" class="btn btn-primary">Оновити</button>
+        <button type="submit" class="btn btn-primary mt-2">Оновити</button>
     </form>
 
     <h3 class="mt-4">Видалення</h3>

@@ -1,5 +1,6 @@
 from django import forms
 from .models import User
+from django.forms import TextInput
 
 
 class UserForm(forms.ModelForm):
@@ -9,6 +10,16 @@ class UserForm(forms.ModelForm):
             'full_name',
             'email'
         ]
+        widgets = {
+            'full_name': TextInput(attrs ={ 
+            'class' : 'form-control',
+            'placeholder': "Введіть повне ім'я."
+            }),
+            'email': TextInput(attrs ={ 
+            'class' : 'form-control',
+            'placeholder': "Введіть електронну пошту."
+            })
+        }
 
     def clean_email(self):
         email = self.cleaned_data.get('email')

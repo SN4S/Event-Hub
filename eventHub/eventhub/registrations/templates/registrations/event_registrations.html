@@ -1,7 +1,7 @@
 {% extends "main/base.html" %}
 
 {% block content %}
-  <div class="container mt-5">
+  <div class="container mt-3">
     <h2>Реєстрація учасників для "{{ event.name }}"</h2>
 
     <!-- 🔹 Зареєстровані учасники -->
@@ -37,16 +37,16 @@
     <!-- 🔹 Форма пошуку -->
     <h3>Додати нового учасника</h3>
     <form method="get" class="mb-3">
-      <input type="text" name="full_name" placeholder="Пошук за ім’ям" value="{{ request.GET.full_name }}">
-      <input type="email" name="email" placeholder="Пошук за email" value="{{ request.GET.email }}">
-      <select name="sort_by">
+      <input type="text" name="full_name" placeholder="Пошук за ім’ям" class="form-control" value="{{ request.GET.full_name }}">
+      <input type="email" name="email" placeholder="Пошук за email" class="form-control mt-2" value="{{ request.GET.email }}">
+      <select name="sort_by" class="form-select">
         <option value="">Сортувати за...</option>
         <option value="full_name" {% if request.GET.sort_by == "full_name" %}selected{% endif %}>Ім'я (А-Я)</option>
         <option value="-full_name" {% if request.GET.sort_by == "-full_name" %}selected{% endif %}>Ім'я (Я-А)</option>
         <option value="email" {% if request.GET.sort_by == "email" %}selected{% endif %}>Email (А-Я)</option>
         <option value="-email" {% if request.GET.sort_by == "-email" %}selected{% endif %}>Email (Я-А)</option>
       </select>
-      <button type="submit">Пошук</button>
+      <button type="submit" class="btn btn-primary mt-2">Пошук</button>
     </form>
 
     <!-- 🔹 Список доступних учасників для додавання -->
@@ -74,7 +74,7 @@
           {% endfor %}
         </tbody>
       </table>
-      <button type="submit">Додати вибраних</button>
+      <button type="submit" class="btn btn-success">Додати вибраних</button>
     </form>
   </div>
 {% endblock %}
