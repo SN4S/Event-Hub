@@ -1,0 +1,80 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+  <div class="container mt-3">
+    <h2>Реєстрація учасників для "{{ event.name }}"</h2>
+
+    <!-- 🔹 Зареєстровані учасники -->
+    <h3>Зареєстровані учасники</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Ім'я</th>
+          <th>Email</th>
+          <th>Дія</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in registered_users %}
+          <tr>
+            <td>{{ user.full_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <form method="POST" action="{% url 'remove_registration' event.id user.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">Видалити</button>
+              </form>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="3">Немає зареєстрованих учасників</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- 🔹 Форма пошуку -->
+    <h3>Додати нового учасника</h3>
+    <form method="get" class="mb-3">
+      <input type="text" name="full_name" placeholder="Пошук за ім’ям" class="form-control" value="{{ request.GET.full_name }}">
+      <input type="email" name="email" placeholder="Пошук за email" class="form-control mt-2" value="{{ request.GET.email }}">
+      <select name="sort_by" class="form-select">
+        <option value="">Сортувати за...</option>
+        <option value="full_name" {% if request.GET.sort_by == "full_name" %}selected{% endif %}>Ім'я (А-Я)</option>
+        <option value="-full_name" {% if request.GET.sort_by == "-full_name" %}selected{% endif %}>Ім'я (Я-А)</option>
+        <option value="email" {% if request.GET.sort_by == "email" %}selected{% endif %}>Email (А-Я)</option>
+        <option value="-email" {% if request.GET.sort_by == "-email" %}selected{% endif %}>Email (Я-А)</option>
+      </select>
+      <button type="submit" class="btn btn-primary mt-2">Пошук</button>
+    </form>
+
+    <!-- 🔹 Список доступних учасників для додавання -->
+    <form method="POST">
+      {% csrf_token %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Вибрати</th>
+            <th>Ім'я</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+            <tr>
+              <td><input type="checkbox" name="user_ids" value="{{ user.id }}"></td>
+              <td>{{ user.full_name }}</td>
+              <td>{{ user.email }}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="3">Немає доступних учасників</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button type="submit" class="btn btn-success">Додати вибраних</button>
+    </form>
+  </div>
+{% endblock %}

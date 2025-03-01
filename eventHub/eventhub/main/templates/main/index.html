@@ -1,0 +1,20 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+  <div class="container mt-3">
+    <h2>Список івентів</h2>
+
+    <form method="GET" class="input-group">
+        <input type="text" name="name" placeholder="Пошук за назвою" class="form-control">
+        <button type="submit" class="btn btn-outline-secondary" type="button">Знайти</button>
+    </form>
+
+      {% for event in events %}
+          <div class="card m-0 mt-2">
+            <div class="card-body">
+              <a href="{% url 'event_registration' event.id %}" class="nav-link">{{ event.name }}</a></li>
+            </div>
+          </div>
+      {% endfor %}
+  </div>
+{% endblock %}

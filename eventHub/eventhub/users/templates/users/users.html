@@ -1,0 +1,51 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+  <div>
+    <h2>Список учасників</h2>
+
+    <form method="get">
+      <div>
+        <div class="col-auto p-2">
+          <input type="text" name="full_name" class="form-control" placeholder="Пошук за іменем" value="{{ request.GET.full_name }}">
+        </div>
+        <div class="col-auto p-2">
+          <input type="email" name="email" class="form-control" placeholder="Пошук за email" value="{{ request.GET.email }}">
+        </div>
+        <div class="m-2">
+          <select class="form-select" name="sort_by">
+            <option value="no_select" selected>Сортувати за...</option>
+            <option value="full_name" {% if request.GET.sort_by == "full_name" %}selected{% endif %}>Ім'я (А-Я)</option>
+            <option value="-full_name" {% if request.GET.sort_by == "-full_name" %}selected{% endif %}>Ім'я (Я-А)</option>
+            <option value="email" {% if request.GET.sort_by == "email" %}selected{% endif %}>Email (А-Я)</option>
+            <option value="-email" {% if request.GET.sort_by == "-email" %}selected{% endif %}>Email (Я-А)</option>
+          </select>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-success m-2">Застосувати</button>
+        </div>
+      </div>
+    </form>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Ім'я</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr scope="row">
+            <td><a href="{% url 'user' pk=user.pk %}">{{ user.full_name }}</a></td>
+            <td>{{ user.email }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="2">Немає результатів</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

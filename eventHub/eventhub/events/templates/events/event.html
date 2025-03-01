@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ event.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    <h2>Івент: {{ event.name }}</h2>
+    <p>Опис: {{ event.description }}</p>
+    <p>Статус: {{ event.is_finished }}</p>
+
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <h3>Редагування</h3>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Оновити</button>
+    </form>
+
+    <h3 class="mt-4">Видалення</h3>
+    <form method="post" action="{% url 'delete' pk=event.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Видалити івент</button>
+    </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+  <div>
+    <h2>Список івентів</h2>
+
+    <form method="get">
+      <div>
+        <div class="col-auto p-2">
+          <input type="text" name="name" class="form-control" placeholder="Пошук за назвою" value="{{ request.GET.name }}">
+        </div>
+        <div class="col-auto p-2">
+          <input name="description" class="form-control" placeholder="Пошук за описом" value="{{ request.GET.description }}">
+        </div>
+        <div class="m-2">
+          <select class="form-select" name="sort_by">
+            <option value="no_select" selected>Сортувати за...</option>
+            <option value="name" {% if request.GET.sort_by == "name" %}selected{% endif %}>Назва (А-Я)</option>
+            <option value="-name" {% if request.GET.sort_by == "-name" %}selected{% endif %}>Назва (Я-А)</option>
+            <option value="description" {% if request.GET.sort_by == "description" %}selected{% endif %}>Опис (А-Я)</option>
+            <option value="-description" {% if request.GET.sort_by == "-description" %}selected{% endif %}>Опис (Я-А)</option>
+          </select>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-success m-2">Застосувати</button>
+        </div>
+      </div>
+    </form>
+
+    <a href="{% url 'create' %}" class="btn btn-success mb-3">Додати івент</a>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Назва</th>
+          <th>Опис</th>
+          <th>Статус</th>
+        </tr>
+      </thead>
+<tbody>
+    {% for event in events %}
+      <tr>
+        <td><a href="{% url 'event' pk=event.pk %}">{{ event.name }}</a></td>
+        <td>{{ event.description }}</td>
+        <td>{{ event.is_finished }}</td>
+      </tr>
+
+    {% empty %}
+      <tr>
+        <td colspan="2">Немає результатів</td>
+      </tr>
+    {% endfor %}
+</tbody>
+    </table>
+  </div>
+{% endblock %}
