@@ -12,6 +12,5 @@ def about(request):
 
 
 def main_page(request):
-    events = Event.objects.all()
-    events = FilterManager.apply_filters(events, request, ['name', 'location'])
+    events = Event.objects.filter(is_finished=False)
     return render(request, 'main/index.html', {'events': events})

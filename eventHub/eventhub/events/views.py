@@ -5,6 +5,7 @@ from django.views import View
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from .models import Event
 from .form import EventForm
+from main.utils import FilterManager
 
 # Create your views here.
 class EventCreateView(CreateView):
@@ -22,6 +23,10 @@ class EventsListView(ListView):
     model = Event
     template_name = 'events/events.html'
     context_object_name = 'events'
+
+    def get_queryset(self):
+        events = super().get_queryset()
+        return FilterManager.apply_filters(events, self.request, ['name', 'description'])
 
 
 class EventDetailView(View):
