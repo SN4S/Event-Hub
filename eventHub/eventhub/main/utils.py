@@ -5,7 +5,7 @@ class FilterManager:
     def apply_filters(queryset, request, allowed_fields):
 
         filters = Q()
-        sorting = request.GET.get("sort")
+        sorting = request.GET.get("sort_by")
 
         for field in allowed_fields:
             value = request.GET.get(field)
