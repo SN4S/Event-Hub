@@ -15,10 +15,10 @@ class EventForm(forms.ModelForm):
         widgets = {
             'name': TextInput(attrs ={ 
             'class' : 'form-control',
-            'placeholder': "Введіть повне ім'я."
+            'placeholder': "Введіть назву."
             }),
             'description': TextInput(attrs ={ 
             'class' : 'form-control',
-            'placeholder': "Введіть електронну пошту."
+            'placeholder': "Введіть опис."
             })
         }
