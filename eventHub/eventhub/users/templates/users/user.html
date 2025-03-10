@@ -28,7 +28,7 @@
     </form>
 
     <h3 class="mt-4">Видалення</h3>
-    <form method="post" action="{% url 'delete' pk=user.pk %}">
+    <form method="post" action="{% url 'delete-user' pk=user.pk %}">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Видалити користувача</button>
     </form>
