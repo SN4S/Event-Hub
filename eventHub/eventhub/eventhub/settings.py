@@ -28,7 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'event-hub-8iq3.onrender.com',
-    '127.0.0.1'
+    '127.0.0.1',
+    'eventhub-gfid.onrender.com'
 ]
 
 
