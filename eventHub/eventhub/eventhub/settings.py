@@ -27,9 +27,8 @@ SECRET_KEY = 'django-insecure-#ayfbekbfjr3a$c0#vc=n^=m#%+3$m98*ed9fuymqy%uayaizz
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'event-hub-8iq3.onrender.com',
-    '127.0.0.1',
-    'eventhub-gfid.onrender.com'
+    'eventhub-6ijr.onrender.com',
+    '127.0.0.1'
 ]
 
 
