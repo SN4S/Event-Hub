@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+        - name: django
+          image: sn4s/eventhub:5.0
+          env:
+            - name: DB_NAME
+              value: eventhub
+            - name: DB_USER
+              value: eventhub
+            - name: DB_PASSWORD
+              value: mypassword
+            - name: DB_HOST
+              value: postgres
+          ports:
+            - containerPort: 8000

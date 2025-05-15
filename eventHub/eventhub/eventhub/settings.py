@@ -28,7 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'eventhub-6ijr.onrender.com',
-    '127.0.0.1'
+    '127.0.0.1',
+    '192.168.59.100',
+    '44.206.234.112',
+    '172.31.91.104'
 ]
 
 
@@ -88,6 +91,17 @@ DATABASES = {
         default='postgresql://postgres:postgres@localhost:5432/eventhub',
         conn_max_age=600
     )
+}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'eventhub'),
+        'USER': os.getenv('DB_USER', 'eventhub'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'mypassword'),
+        'HOST': os.getenv('DB_HOST', 'postgres'),  # <-- ВАЖЛИВО
+        'PORT': '5432',
+    }
 }
 
 
